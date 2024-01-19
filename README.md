@@ -1,47 +1,49 @@
+
 # x11VNC
-x11VNC install linux mint (LMDE)
+1
+sudo apt-get install x11vnc
+2
+sudo nano /lib/systemd/system/x11vnc.service
 
-1. Install x11vnc:
-
-sudo apt-get -y install x11vnc
-
-2. Create the directory for the password file:
-
-sudo mkdir /etc/x11vnc
-
-3. Create the encrypted password file:
-
-sudo x11vnc --storepasswd /etc/x11vnc/vncpwd
-
-You will be asked to enter and verify the password.  Then press Y to save the password file.
-
-4. Create the systemd service file for the x11vnc service:
-
-sudo xed /lib/systemd/system/x11vnc.service
-
-Copy/Paste this code into the empty file:
+Nota: yourPassword is the password.
+Coloar o texto abaixo:
 
 [Unit]
-Description=Start x11vnc at startup.
-After=multi-user.target
+Description=x11vnc service
+After=display-manager.service network.target syslog.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/x11vnc -auth guess -forever -noxdamage -repeat -rfbauth /etc/x11vnc/vncpwd -rfbport 5900 -shared
+ExecStart=/usr/bin/x11vnc -forever -display :0 -auth guess -passwd yourPassword
+ExecStop=/usr/bin/killall x11vnc
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 
-5: Reload the services:
+
+
+Os comandos abaixo vão reinciar e habilitar o serviço.
+
+systemctl daemon-reload
+systemctl enable x11vnc.service
+systemctl start x11vnc.service
+systemctl status x11vnc.service
+
+
+x11vnc status
+
+
+sudo reboot
+
+1: Recarregar o serviço:
 
 sudo systemctl daemon-reload
 
-6. Enable the x11vnc service at boot time:
+2. Habilitar o serviço no boot:
 
 sudo systemctl enable x11vnc.service
 
-7. Start the service:
-
-Reboot or
+3. Iniciar o serviço:
 
 sudo systemctl start x11vnc.service
