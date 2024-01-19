@@ -1,12 +1,11 @@
 
 # x11VNC
-1
 sudo apt-get install x11vnc
-2
+
 sudo nano /lib/systemd/system/x11vnc.service
 
-Nota: yourPassword is the password.
-Coloar o texto abaixo:
+# Nota: yourPassword is the password.
+# Coloar o texto abaixo:
 
 [Unit]
 Description=x11vnc service
@@ -23,7 +22,7 @@ WantedBy=multi-user.target
 
 
 
-Os comandos abaixo vão reinciar e habilitar o serviço.
+# Os comandos abaixo vão reinciar e habilitar o serviço.
 
 systemctl daemon-reload
 systemctl enable x11vnc.service
@@ -36,14 +35,14 @@ x11vnc status
 
 sudo reboot
 
-1: Recarregar o serviço:
+# 1: Recarregar o serviço:
 
 sudo systemctl daemon-reload
 
-2. Habilitar o serviço no boot:
+# 2. Habilitar o serviço no boot:
 
 sudo systemctl enable x11vnc.service
 
-3. Iniciar o serviço:
+# 3. Iniciar o serviço:
 
 sudo systemctl start x11vnc.service
