@@ -24,9 +24,13 @@ WantedBy=multi-user.target
 
 # Os comandos abaixo vão reinciar e habilitar o serviço.
 
+
 systemctl daemon-reload
+
 systemctl enable x11vnc.service
+
 systemctl start x11vnc.service
+
 systemctl status x11vnc.service
 
 
